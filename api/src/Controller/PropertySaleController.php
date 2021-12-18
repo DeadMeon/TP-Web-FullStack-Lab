@@ -17,7 +17,7 @@ class PropertySaleController extends AbstractController
         return new Response('Saved new product with id ');
     }
 
-    #[Route('/average', name: 'average')]
+    #[Route('/property_sales/average', name: 'average')]
     public function averageYear(PropertySaleRepository $propertySaleRepository): Response
     {
 
@@ -41,31 +41,31 @@ class PropertySaleController extends AbstractController
 
         $this->reformat($memory, $memory_count);
 
-        $map = array_map(function (PropertySale $propertySale): int {
-            return $propertySale->getPrice() /  $propertySale->getArea();
+        $map = array_map(function (PropertySale $propertySale): float {
+            return round($propertySale->getPrice() /  $propertySale->getArea(), 2);
         }, $memory);
 
         return $this->json(["data" => $map]);
     }
 
-    #[Route('/count/{time}/{before}/{after}', name: 'count')]
+    #[Route('/property_sales/count/{time}/{before}/{after}', name: 'count')]
     public function count(string $time, string $before, string $after, PropertySaleRepository $propertySaleRepository): Response
     {
         $memory_count = array();
 
         $filter = function (PropertySale $propertySale) use ($before, $after) {
             return $this->inDate($propertySale, $before, $after);
-        }; 
+        };
 
         $products = array_filter($propertySaleRepository->findAll(), $filter);
 
-        
+
 
         foreach ($products as $key => $entity) {
 
             $title = "";
 
-            if($time == "month") {
+            if ($time == "month") {
                 $title = $entity->getSellMonth() . "-" . $entity->getSellYear();
             } else if ($time == "year") {
                 $title = $entity->getSellYear();
@@ -74,13 +74,44 @@ class PropertySaleController extends AbstractController
             }
 
             if (array_key_exists($title, $memory_count)) {
-                $memory_count[$title] = $memory_count[$title] + 1;
+                $memory_count[$title] = $memory_count[$title] + $entity->getCount();
             } else {
-                $memory_count[$title] = 1;
+                $memory_count[$title] = $entity->getCount();
             }
         }
 
         return $this->json(["data" => $memory_count]);
+    }
+
+    
+    #[Route('/property_sales/sell/{date}', name: 'property_sales_sell')]
+    public function sell(string $date, PropertySaleRepository $propertySaleRepository): Response
+    {
+        $memory_count = array();
+
+        $filter = function (PropertySale $propertySale) use ($date) {
+            return $propertySale->getSellYear() == $date;
+        };
+
+        $products = array_filter($propertySaleRepository->findAll(), $filter);
+
+        $total = 0;
+
+        foreach ($products as $key => $entity) {
+            $title = $entity->getRegion();
+            $total += $entity->getCount();
+            if (array_key_exists($title, $memory_count)) {
+                $memory_count[$title] = $memory_count[$title] + $entity->getCount();
+            } else {
+                $memory_count[$title] = $entity->getCount();
+            }
+        }
+
+        $map = array_map(function (int $val) use ($total): float {
+            return round($val / $total * 100, 2);
+        }, $memory_count);
+
+        return $this->json(["data" => $map]);
     }
 
     public function reformat($memory, $memory_count)
@@ -91,15 +122,17 @@ class PropertySaleController extends AbstractController
         }
     }
 
-    public function inDate($entity, $date1, $date2) {
+    public function inDate($entity, $date1, $date2)
+    {
         return  $this->beforeDate($entity, $date2) && $this->afterDate($entity, $date1);
     }
 
-    public function beforeDate(PropertySale $entity, $date) {
+    public function beforeDate(PropertySale $entity, $date)
+    {
         $date_info = explode('-', $date); // dd/mm/YY
-        if(count($date_info) != 3) return false;
-        if($entity->getSellYear() == $date_info[2]) {
-            if($entity->getSellMonth() == $date_info[1]) {
+        if (count($date_info) != 3) return false;
+        if ($entity->getSellYear() == $date_info[2]) {
+            if ($entity->getSellMonth() == $date_info[1]) {
                 return intval($date_info[0]) >= intval($entity->getSellDay());
             } else {
                 return intval($date_info[1]) >= intval($entity->getSellMonth());
@@ -109,11 +142,12 @@ class PropertySaleController extends AbstractController
         }
     }
 
-    public  function afterDate(PropertySale $entity, $date) {
+    public  function afterDate(PropertySale $entity, $date)
+    {
         $date_info = explode('-', $date); // dd/mm/YY
-        if(count($date_info) != 3) return false;
-        if($entity->getSellYear() == $date_info[2]) {
-            if($entity->getSellMonth() == $date_info[1]) {
+        if (count($date_info) != 3) return false;
+        if ($entity->getSellYear() == $date_info[2]) {
+            if ($entity->getSellMonth() == $date_info[1]) {
                 return intval($date_info[0]) <= intval($entity->getSellDay());
             } else {
                 return intval($date_info[1]) <= intval($entity->getSellMonth());
