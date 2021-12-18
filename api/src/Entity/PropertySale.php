@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\PropertySaleController;
 use App\Repository\PropertySaleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +42,9 @@ class PropertySale
 
     #[ORM\Column(type: 'string', length: 255)]
     private $sellYear;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $count;
 
     public function getId(): ?int
     {
@@ -151,6 +155,18 @@ class PropertySale
     public function setSellYear(string $sellYear): self
     {
         $this->sellYear = $sellYear;
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(?int $count): self
+    {
+        $this->count = $count;
 
         return $this;
     }
