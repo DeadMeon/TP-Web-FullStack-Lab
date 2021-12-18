@@ -8,7 +8,21 @@ use App\Repository\PropertySaleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PropertySaleRepository::class)]
-#[ApiResource]
+#[ApiResource(itemOperations: [
+    'get',
+    'average' => [
+        'method' => 'GET',
+        'path' => '/property_sales/average'
+    ],
+    'count' => [
+        'method' => 'GET',
+        'path' => '/property_sales/count/{time}/{before}/{after}'
+    ],
+    'sell' => [
+        'method' => 'GET',
+        'path' => '/property_sales/sell/{date}'
+    ]
+])]
 class PropertySale
 {
     #[ORM\Id]

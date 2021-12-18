@@ -11,11 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PropertySaleController extends AbstractController
 {
-    #[Route('/test', name: 'test')]
-    public function index(): Response
-    {
-        return new Response('Saved new product with id ');
-    }
 
     #[Route('/property_sales/average', name: 'average')]
     public function averageYear(PropertySaleRepository $propertySaleRepository): Response
@@ -84,7 +79,7 @@ class PropertySaleController extends AbstractController
     }
 
     
-    #[Route('/property_sales/sell/{date}', name: 'property_sales_sell')]
+    #[Route('/property_sales/sell/{date}', name: 'sell')]
     public function sell(string $date, PropertySaleRepository $propertySaleRepository): Response
     {
         $memory_count = array();
