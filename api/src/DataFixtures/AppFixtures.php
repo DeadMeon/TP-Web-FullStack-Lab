@@ -48,6 +48,7 @@ class AppFixtures extends Fixture
                     $property->setRegion($this->getRegion($row_data[18]));
                     $property->setCodeType(intval($row_data[35]));
                     $property->setArea(intval($row_data[38]));
+                    $property->setCount(0);
                     $this->add($property);
                     gc_collect_cycles();
                 }
@@ -80,6 +81,7 @@ class AppFixtures extends Fixture
             $pro = $this->memory[$title];
             $pro->setPrice($pro->getPrice() + $property->getPrice());
             $pro->setArea($pro->getArea() + $property->getArea());
+            $pro->setCount($pro->getCount() + 1);
             $this->memory_count[$title] = $this->memory_count[$title] + 1;
         } else {
             $this->memory[$title] = $property;
