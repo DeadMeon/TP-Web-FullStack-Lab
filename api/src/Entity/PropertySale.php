@@ -31,16 +31,7 @@ class PropertySale
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $sellDate;
-
-    #[ORM\Column(type: 'integer')]
-    private $codeDepartement;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private $region;
-
-    #[ORM\Column(type: 'integer')]
-    private $codeType;
 
     #[ORM\Column(type: 'integer')]
     private $area;
@@ -67,26 +58,7 @@ class PropertySale
 
     public function getSellDate(): ?string
     {
-        return $this->sellDate;
-    }
-
-    public function setSellDate(string $sellDate): self
-    {
-        $this->sellDate = $sellDate;
-
-        return $this;
-    }
-
-    public function getCodeDepartement(): ?int
-    {
-        return $this->codeDepartement;
-    }
-
-    public function setCodeDepartement(int $codeDepartement): self
-    {
-        $this->codeDepartement = $codeDepartement;
-
-        return $this;
+        return $this->sellDay . "/" . $this->sellMonth . "/" . $this->sellYear;
     }
 
     public function getRegion(): ?string
@@ -97,18 +69,6 @@ class PropertySale
     public function setRegion(string $region): self
     {
         $this->region = $region;
-
-        return $this;
-    }
-
-    public function getCodeType(): ?int
-    {
-        return $this->codeType;
-    }
-
-    public function setCodeType(int $codeType): self
-    {
-        $this->codeType = $codeType;
 
         return $this;
     }

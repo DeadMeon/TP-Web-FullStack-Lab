@@ -39,20 +39,21 @@ class AppFixtures extends Fixture
                 if ($row_data[9] == "Vente" && ($row_data[35] == '1' || $row_data[35] == '2')) {
                     $property = new PropertySale();
                     $date_info = explode('/', $row_data[8]);
-                    $property->setSellDate($row_data[8]);
                     $property->setSellDay($date_info[0]);
                     $property->setSellMonth($date_info[1]);
                     $property->setSellYear($date_info[2]);
                     $property->setPrice(floatval($row_data[10]));
-                    $property->setCodeDepartement(intval($row_data[18]));
                     $property->setRegion($this->getRegion($row_data[18]));
-                    $property->setCodeType(intval($row_data[35]));
                     $property->setArea(intval($row_data[38]));
                     $property->setCount(0);
                     $this->add($property);
                     gc_collect_cycles();
+                    if($i++ % 10000 == 0) {
+                        echo ".";
+                    }
                 }
             }
+            echo "\n";
             fclose($handle);
         }
 
@@ -106,12 +107,8 @@ class AppFixtures extends Fixture
     public function reformat()
     {
         foreach ($this->memory as $key => $pro) {
-            printf($key . " : key\n");
-            printf(strval($pro->getPrice()) . " : totaly price\n");
-            printf(strval($this->memory_count[$key]) . " : count\n");
             $pro->setPrice($pro->getPrice() / $this->memory_count[$key]);
             $pro->setArea($pro->getArea() / $this->memory_count[$key]);
-            printf(strval($pro->getPrice()) . " : after divide\n");
         }
     }
 
