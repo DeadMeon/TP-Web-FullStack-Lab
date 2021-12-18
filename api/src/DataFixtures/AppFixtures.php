@@ -6,6 +6,7 @@ use App\Entity\PropertySale;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+
 class AppFixtures extends Fixture
 {
 
@@ -15,9 +16,15 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        ini_set('memory_limit', '-1');
+        gc_enable();
+        printf(2020 . "\n");
         $this->loadByYear($manager, 2020);
+        printf(2019 . "\n");
         $this->loadByYear($manager, 2019);
+        printf(2018 . "\n");
         $this->loadByYear($manager, 2018);
+        printf(2017 . "\n");
         $this->loadByYear($manager, 2017);
         //$this->loadByYear($manager, 0);
     }
@@ -29,24 +36,31 @@ class AppFixtures extends Fixture
             $i = 0;
             while ($line = stream_get_line($handle, 1024 * 1024, "\n")) {
                 $row_data = explode('|', $line);
-
                 if ($row_data[9] == "Vente" && ($row_data[35] == '1' || $row_data[35] == '2')) {
                     $property = new PropertySale();
+                    $date_info = explode('/', $row_data[8]);
                     $property->setSellDate($row_data[8]);
+                    $property->setSellDay($date_info[0]);
+                    $property->setSellMonth($date_info[1]);
+                    $property->setSellYear($date_info[2]);
                     $property->setPrice(floatval($row_data[10]));
                     $property->setCodeDepartement(intval($row_data[18]));
                     $property->setRegion($this->getRegion($row_data[18]));
                     $property->setCodeType(intval($row_data[35]));
                     $property->setArea(intval($row_data[38]));
                     $this->add($property);
+                    gc_collect_cycles();
                 }
             }
             fclose($handle);
         }
 
         $this->reformat();
+        gc_collect_cycles();
         $this->insert($manager, $this->memory);
+        gc_collect_cycles();
         $this->reset();
+        gc_collect_cycles();
     }
 
     public function reset() {
@@ -75,8 +89,14 @@ class AppFixtures extends Fixture
 
     public function insert(ObjectManager $manager, $array)
     {
+        $i = 0;
         foreach ($array as $key => $pro) {
             $manager->persist($pro);
+            if(++$i % 500 == 0) {
+                $manager->flush();
+                gc_collect_cycles();
+                printf("-- FLUSH --\n");
+            }
         }
         $manager->flush();
     }
