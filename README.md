@@ -15,6 +15,8 @@ On cherche à développer une application Web avec des composants graphiques ava
 
 vous devrez voir votre console commencer par quelque chose dans le style `/srv/api # ` si c'est la cas vous êtes dans le container de PHP et donc de l'api, c'est ici que tout va se passer pour manipuler l'api.
 
+### Migration
+
 Normalement pas besoin de créé une migration car vous avez ceux du Git, mais au cas ou si besoin 
 
 dans le container PHP `php bin/console make:migration`
@@ -23,6 +25,7 @@ Par contre il est utile à chaque `pull` de d'éxécuté la migration si il y en
 
 dans le container PHP `php bin/console doctrine:migrations:migrate`
 
+### Fixture
 
 quand tout ça est fait vous êtes a la fin !
 
