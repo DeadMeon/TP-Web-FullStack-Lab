@@ -31,6 +31,8 @@ quand tout ça est fait vous êtes a la fin !
 
 Il reste normalement que une seule commande a faire.
 
+ /!\ WARNING /!\  vous devez avoir les fichiers de donnée dans le dossier `/api/data/` sous le format `valeursfoncieres-[année].txt`
+
 dans le container PHP `php -d memory-limit=-1 bin/console doctrine:fixtures:load`
 
 elle prendra du temps a ce faire ne vous inquiété pas.
