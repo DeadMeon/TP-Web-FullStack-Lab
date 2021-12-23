@@ -12,6 +12,7 @@ const LineChart = ({data}) => {
     const arr = data.map(d => {
       return {key: d3.timeParse("%m-%Y")(d.key), value: d.value}
     })
+    arr.sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0))
 
     const svg = d3.select("#line_chart")
       .attr('width', dim.width)
@@ -36,6 +37,34 @@ const LineChart = ({data}) => {
     svg.append("g")
       .call(d3.axisLeft(y));
 
+    const line = d3.line()
+      .x(d=>x(d.key))
+      .y(d => y(d.value))
+      .curve(d3.curveMonotoneX)
+
+    const path = svg.append("path")
+      .datum(arr)
+      .attr("fill", "none")
+      .attr("stroke", "#0c2844")
+      .attr("stroke-width", 1)
+      .attr("d", line)
+
+    svg.selectAll(".circle")
+      .data(arr)
+      .enter()
+      .append("circle")
+      .attr("class","circle")
+      .attr("cx",d => x(d.key))
+      .attr("cy",d => y(d.value))
+      .attr("r",5)
+      .on("mouseover",(d,i) => {
+        d.target.classList.remove('circle')
+        d.target.classList.add("circle-focus")
+      })
+      .on("mouseleave",(d,i) => {
+        d.target.classList.remove('circle-focus')
+        d.target.classList.add("circle")
+      })
 
   }, [])
 
