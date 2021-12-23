@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\PropertySaleRepository;
 use App\Entity\PropertySale;
+use Faker\Core\Number;
 use PhpParser\Builder\Property;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -153,7 +154,7 @@ class PropertySaleController extends AbstractController
         }
     }
 
-    public function makeEntity(string $date, int $value) {
+    public function makeEntity(string $date, float $value) {
         $entity = array();
         $entity["key"] = $date;
         $entity["value"] = $value;
