@@ -17,7 +17,7 @@ const LineChart = ({data}) => {
     const svg = d3.select("#line_chart")
       .attr('width', dim.width)
       .attr('height', dim.height)
-      .style("display","block")
+      .style("display", "block")
       .style('margin', 'auto')
       .style('overflow', 'visible')
 
@@ -39,7 +39,7 @@ const LineChart = ({data}) => {
       .call(d3.axisLeft(y));
 
     const line = d3.line()
-      .x(d=>x(d.key))
+      .x(d => x(d.key))
       .y(d => y(d.value))
       .curve(d3.curveMonotoneX)
 
@@ -50,6 +50,18 @@ const LineChart = ({data}) => {
       .attr("stroke-width", 1)
       .attr("d", line)
 
+    const pathLength = path.node().getTotalLength();
+    const transitionPath = d3
+      .transition()
+      .ease(d3.easeSin)
+      .duration(6000);
+
+    path
+      .attr("stroke-dashoffset", pathLength)
+      .attr("stroke-dasharray", pathLength)
+      .transition(transitionPath)
+      .attr("stroke-dashoffset", 0);
+
     const info = d3.select("body")
       .append("div")
       .attr("class", "circle-info");
@@ -59,11 +71,11 @@ const LineChart = ({data}) => {
       .data(arr)
       .enter()
       .append("circle")
-      .attr("class","circle")
-      .attr("cx",d => x(d.key))
-      .attr("cy",d => y(d.value))
-      .attr("r",5)
-      .on("mouseover",(d,i) => {
+      .attr("class", "circle")
+      .attr("cx", d => x(d.key))
+      .attr("cy", d => y(d.value))
+      .attr("r", 5)
+      .on("mouseover", (d, i) => {
         d.target.classList.remove('circle')
         d.target.classList.add("circle-focus")
         info.html(d3.timeFormat("%m-%Y")(i.key) + "<br/> Prix M2 : " + i.value + "€")
@@ -71,10 +83,10 @@ const LineChart = ({data}) => {
           .style('top', d.pageY - 12 + 'px')
           .style('left', d.pageX + 25 + 'px')
       })
-      .on("mouseleave",(d,i) => {
+      .on("mouseleave", (d, i) => {
         d.target.classList.remove('circle-focus')
         d.target.classList.add("circle")
-        info.style("visibility","hidden")
+        info.style("visibility", "hidden")
       })
 
   }, [])
