@@ -4,7 +4,6 @@ import Head from "next/head";
 import LineChart from "../../components/LineChart";
 
 const Page = ({data1}) => {
-    console.log(data1)
     return (
       <div>
         <div>
@@ -13,7 +12,9 @@ const Page = ({data1}) => {
             <script src="https://d3js.org/d3.v7.min.js"/>
           </Head>
         </div>
-        <LineChart data={data1}/>
+        <div>
+          <LineChart data={data1}/>
+        </div>
       </div>
     )
   }
