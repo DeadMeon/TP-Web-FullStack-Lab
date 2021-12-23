@@ -1,0 +1,10 @@
+
+.circle {
+    fill: #334a6c;
+    stroke: #030303;
+}
+
+.circle-focus {
+    fill: indianred;
+    stroke: steelblue;
+}
