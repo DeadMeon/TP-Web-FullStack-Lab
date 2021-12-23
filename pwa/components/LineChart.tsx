@@ -12,7 +12,6 @@ const LineChart = ({data}) => {
     const arr = data.map(d => {
       return {key: d3.timeParse("%m-%Y")(d.key), value: d.value}
     })
-    arr.sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0))
 
     const svg = d3.select("#line_chart")
       .attr('width', dim.width)
