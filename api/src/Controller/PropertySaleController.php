@@ -8,6 +8,7 @@ use PhpParser\Builder\Property;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use tidy;
 
 class PropertySaleController extends AbstractController
 {
@@ -40,7 +41,7 @@ class PropertySaleController extends AbstractController
             return round($propertySale->getPrice() /  $propertySale->getArea(), 2);
         }, $memory);
 
-        return $this->json(["data" => $map]);
+        return $this->json(["data" => $this->makeArray($map)]);
     }
 
     #[Route('/property_sales/count/{time}/{before}/{after}', name: 'count')]
@@ -75,7 +76,7 @@ class PropertySaleController extends AbstractController
             }
         }
 
-        return $this->json(["data" => $memory_count]);
+        return $this->json(["data" => $this->makeArray($memory_count)]);
     }
 
     
@@ -106,7 +107,7 @@ class PropertySaleController extends AbstractController
             return round($val / $total * 100, 2);
         }, $memory_count);
 
-        return $this->json(["data" => $map]);
+        return $this->json(["data" => $this->makeArray($map)]);
     }
 
     public function reformat($memory, $memory_count)
@@ -150,5 +151,21 @@ class PropertySaleController extends AbstractController
         } else {
             return intval($date_info[2]) <= intval($entity->getSellYear());
         }
+    }
+
+    public function makeEntity(string $date, int $value) {
+        $entity = array();
+        $entity["key"] = $date;
+        $entity["value"] = $value;
+        return $entity;
+    }
+
+    public function makeArray($array) {
+        $result = array();
+        foreach ($array as $key => $value) {
+            array_push($result, $this->makeEntity($key, $value));
+        }
+
+        return $result;
     }
 }
