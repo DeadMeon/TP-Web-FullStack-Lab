@@ -2,6 +2,7 @@ import {NextComponentType, NextPageContext, GetStaticProps} from "next";
 import {fetch} from "../../utils/dataAccess";
 import Head from "next/head";
 import LineChart from "../../components/LineChart";
+
 const Page = ({data1}) => {
     console.log(data1)
     return (
@@ -9,9 +10,10 @@ const Page = ({data1}) => {
         <div>
           <Head>
             <title>PropertySale List</title>
+            <script src="https://d3js.org/d3.v7.min.js"/>
           </Head>
         </div>
-        <LineChart/>
+        <LineChart data={data1}/>
       </div>
     )
   }
