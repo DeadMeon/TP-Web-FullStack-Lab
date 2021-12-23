@@ -80,7 +80,7 @@ class PropertySaleController extends AbstractController
         return $this->json(["data" => $this->makeArray($memory_count)]);
     }
 
-    
+
     #[Route('/property_sales/sell/{date}', name: 'sell')]
     public function sell(string $date, PropertySaleRepository $propertySaleRepository): Response
     {
@@ -108,7 +108,7 @@ class PropertySaleController extends AbstractController
             return round($val / $total * 100, 2);
         }, $memory_count);
 
-        return $this->json(["data" => $this->makeArray($map)]);
+        return $this->json(["data" => $this->makeArray($map, "value")]);
     }
 
     public function reformat($memory, $memory_count)
@@ -154,34 +154,44 @@ class PropertySaleController extends AbstractController
         }
     }
 
-    public function sortDate($date1, $date2) {
+    public function sortDate($date1, $date2)
+    {
         $date_info1 = explode('-', $date1); // dd/mm/YY
         $date_info2 = explode('-', $date2); // dd/mm/YY
-        if(count($date_info1) != count($date_info2)) return -1;
+        if (count($date_info1) != count($date_info2)) return -1;
         for ($i = count($date_info1) - 1; $i > -1; $i--) {
-            if($date_info1[$i] != $date_info2[$i]) {
+            if ($date_info1[$i] != $date_info2[$i]) {
                 return intval($date_info1[$i]) < intval($date_info2[$i]) ? -1 : 1;
             }
         }
         return 0;
     }
 
-    public function makeEntity(string $date, float $value) {
+    public function makeEntity(string $date, float $value)
+    {
         $entity = array();
         $entity["key"] = $date;
         $entity["value"] = $value;
         return $entity;
     }
 
-    public function makeArray($array) {
+    public function makeArray($array, string $sort = "key")
+    {
         $result = array();
         foreach ($array as $key => $value) {
             array_push($result, $this->makeEntity($key, $value));
         }
 
-        usort($result, function ($entity1, $entity2) {
-            return $this->sortDate($entity1["key"], $entity2["key"]);
-        });
+        if ($sort == "key") {
+            usort($result, function ($entity1, $entity2) {
+                return $this->sortDate($entity1["key"], $entity2["key"]);
+            });
+        } else {
+            usort($result, function ($entity1, $entity2) {
+                return strnatcmp($entity1["value"], $entity2["value"]);
+            });
+            $result = array_reverse($result);
+        }
 
         return $result;
     }

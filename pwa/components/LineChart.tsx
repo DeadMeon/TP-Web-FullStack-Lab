@@ -8,7 +8,7 @@ const dim = {
 const LineChart = ({data}) => {
 
   useEffect(() => {
-
+    
     const arr = data.map(d => {
       return {key: d3.timeParse("%m-%Y")(d.key), value: d.value}
     })
