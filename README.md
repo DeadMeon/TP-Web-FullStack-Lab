@@ -36,3 +36,7 @@ Il reste normalement que une seule commande a faire.
 dans le container PHP `php -d memory-limit=-1 bin/console doctrine:fixtures:load`
 
 elle prendra du temps a ce faire ne vous inquiété pas.
+
+# Test
+
+`sudo docker-compose exec php bin/phpunit` ou dans le container PHP `php bin/phpunit`

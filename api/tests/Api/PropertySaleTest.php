@@ -9,7 +9,7 @@ class PropertySaleTest extends ApiTestCase
 
     public function testGetAverage()
     {
-        $response = static::createClient()->request('GET', '/property_sales');
+        $response = static::createClient()->request('GET', '/property_sales/average');
 
         $this->assertResponseStatusCodeSame(200);
     }

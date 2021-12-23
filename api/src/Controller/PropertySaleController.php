@@ -186,7 +186,7 @@ class PropertySaleController extends AbstractController
             usort($result, function ($entity1, $entity2) {
                 return $this->sortDate($entity1["key"], $entity2["key"]);
             });
-        } else {
+        } else if($sort == "value") {
             usort($result, function ($entity1, $entity2) {
                 return strnatcmp($entity1["value"], $entity2["value"]);
             });
