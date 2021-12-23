@@ -154,6 +154,18 @@ class PropertySaleController extends AbstractController
         }
     }
 
+    public function sortDate($date1, $date2) {
+        $date_info1 = explode('-', $date1); // dd/mm/YY
+        $date_info2 = explode('-', $date2); // dd/mm/YY
+        if(count($date_info1) != count($date_info2)) return -1;
+        for ($i = count($date_info1) - 1; $i > -1; $i--) {
+            if($date_info1[$i] != $date_info2[$i]) {
+                return intval($date_info1[$i]) < intval($date_info2[$i]) ? -1 : 1;
+            }
+        }
+        return 0;
+    }
+
     public function makeEntity(string $date, float $value) {
         $entity = array();
         $entity["key"] = $date;
@@ -166,6 +178,10 @@ class PropertySaleController extends AbstractController
         foreach ($array as $key => $value) {
             array_push($result, $this->makeEntity($key, $value));
         }
+
+        usort($result, function ($entity1, $entity2) {
+            return $this->sortDate($entity1["key"], $entity2["key"]);
+        });
 
         return $result;
     }
