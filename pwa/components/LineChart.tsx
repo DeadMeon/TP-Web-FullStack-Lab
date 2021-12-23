@@ -17,7 +17,8 @@ const LineChart = ({data}) => {
     const svg = d3.select("#line_chart")
       .attr('width', dim.width)
       .attr('height', dim.height)
-      .style('margin-top', '20px')
+      .style("display","block")
+      .style('margin', 'auto')
       .style('overflow', 'visible')
 
     //Scalling for x-axis
@@ -49,6 +50,11 @@ const LineChart = ({data}) => {
       .attr("stroke-width", 1)
       .attr("d", line)
 
+    const info = d3.select("body")
+      .append("div")
+      .attr("class", "circle-info");
+
+    //Adding circle
     svg.selectAll(".circle")
       .data(arr)
       .enter()
@@ -60,16 +66,21 @@ const LineChart = ({data}) => {
       .on("mouseover",(d,i) => {
         d.target.classList.remove('circle')
         d.target.classList.add("circle-focus")
+        info.html(d3.timeFormat("%m-%Y")(i.key) + "<br/> Prix M2 : " + i.value + "€")
+          .style("visibility", "visible")
+          .style('top', d.pageY - 12 + 'px')
+          .style('left', d.pageX + 25 + 'px')
       })
       .on("mouseleave",(d,i) => {
         d.target.classList.remove('circle-focus')
         d.target.classList.add("circle")
+        info.style("visibility","hidden")
       })
 
   }, [])
 
   return (
-    <div style={{width: "50%", margin: "0 auto"}}>
+    <div style={{width: "50%", margin: "20px auto"}}>
       <svg id="line_chart"/>
     </div>
   )
