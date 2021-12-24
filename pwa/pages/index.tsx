@@ -1,11 +1,13 @@
+import HeaderComponent from "components/HeaderComponent";
 import Head from "next/head";
 import Link from "next/link";
 
 const Welcome = () => (
   <>
     <Head>
-      <title>Welcome to API Platform!</title>
+      <title>PaluStats</title>
     </Head>
+    <HeaderComponent />
 
     <div className="welcome">
       <header className="welcome__top">
