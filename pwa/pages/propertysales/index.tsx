@@ -2,8 +2,9 @@ import {NextComponentType, NextPageContext, GetStaticProps} from "next";
 import {fetch} from "../../utils/dataAccess";
 import Head from "next/head";
 import LineChart from "../../components/LineChart";
+import BarChart from "../../components/BarChart";
 
-const Page = ({data1}) => {
+const Page = ({lineData, barData}) => {
     return (
       <div>
         <div>
@@ -13,7 +14,8 @@ const Page = ({data1}) => {
           </Head>
         </div>
         <div>
-          <LineChart data={data1}/>
+          <LineChart data={lineData}/>
+          <BarChart data={barData}/>
         </div>
       </div>
     )
@@ -21,10 +23,13 @@ const Page = ({data1}) => {
 ;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const collection = await fetch("/property_sales/average");
+  const lineCollection = await fetch("/property_sales/average");
+  const barCollection = await fetch("/property_sales/count/year/1-1-2017/1-12-2020");
+
   return {
     props: {
-      data1: collection.data,
+      lineData: lineCollection.data,
+      barData: barCollection.data
     }
   }
 }
