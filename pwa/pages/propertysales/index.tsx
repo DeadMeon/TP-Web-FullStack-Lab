@@ -24,7 +24,7 @@ const Page = ({lineData, barData}) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const lineCollection = await fetch("/property_sales/average");
-  const barCollection = await fetch("/property_sales/count/month/1-1-2017/1-12-2020");
+  const barCollection = await fetch("/property_sales/count/month/1-1-2017/1-10-2017");
 
   return {
     props: {

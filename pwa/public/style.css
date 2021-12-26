@@ -19,3 +19,33 @@
     border-radius: 5px;
     text-align: center;
 }
+
+.bar-chart {
+    width: 500px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-input {
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+.load-button {
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color:indianred ;
+}
+
+select{
+    padding: 5px;
+    width:100px;
+}

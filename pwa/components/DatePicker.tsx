@@ -1,6 +1,5 @@
 import React, {forwardRef} from 'react';
 import DatePicker from "react-datepicker";
-
 const DatePick = ({date, setDate, color}) => {
   const years = [2017, 2018, 2019, 2020]
   const months = [

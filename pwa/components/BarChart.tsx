@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-
+import DatePicker from "./DatePicker";
+import {fetch} from "../utils/dataAccess";
 const dim = {
   width: 800,
   height: 400
@@ -24,10 +25,12 @@ const formatDate = (data) => {
 const BarChart = ({data}) => {
 
   const [donne, setDonne] = useState(data)
-  
+  const [startDate, setStartDate] = useState(new Date('2017-01-01'));
+  const [endDate, setEndDate] = useState(new Date('2020-12-30'));
+  const [period,setPeriod] = useState("year")
   const getXAxis = (arr) => {
 
-    if (arr.length <= 48) {
+    if (arr.length <= 40) {
       return d3.scaleBand()
         .range([0, dim.width])
         .domain(arr.map(d => d.key))
@@ -38,7 +41,7 @@ const BarChart = ({data}) => {
   }
 
   const displayXAxis = (svg, arr, x) => {
-    if (arr.length <= 48) {
+    if (arr.length <= 40) {
       svg.append("g")
         .attr("transform", "translate(0," + dim.height + ")")
         .call(d3.axisBottom(x))
@@ -55,7 +58,7 @@ const BarChart = ({data}) => {
 
   useEffect(() => {
 
-    const arr = donne.length > 48 ? formatDate(donne) : donne
+    const arr = donne.length > 40 ? formatDate(donne) : donne
 
     const svg = d3.select('#bar_chart').html("");
     svg
@@ -85,7 +88,7 @@ const BarChart = ({data}) => {
     bar.enter()
       .append("rect")
       .attr("x", d => x(d.key))
-      .attr("width", arr.length > 48 ? dim.width / arr.length : x.bandwidth())
+      .attr("width", arr.length > 40 ? dim.width / arr.length : x.bandwidth())
       .attr("fill", "#69b3a2")
       .attr("height", d => dim.height - y(0))
       .attr("y", d => y(0))
@@ -102,10 +105,30 @@ const BarChart = ({data}) => {
 
   }, [donne])
 
+  const handleClick = async () => {
+    const data = await fetch(`/property_sales/count/${period}/${d3.timeFormat("%d-%m-%Y")(startDate)}/${d3.timeFormat("%d-%m-%Y")(endDate)}`)
+    setDonne(data.data)
+  }
+
   return (
-    <div style={{width: "50%", margin: "100px auto"}}>
-      <svg id="bar_chart"/>
+    <div style={{marginTop:'80px'}}>
+      <div className="bar-chart">
+        <div style={{display: 'flex', width: '70%', justifyContent: 'space-between'}}>
+          <DatePicker date={startDate} setDate={setStartDate} color="#5b8da9"/>
+          <DatePicker date={endDate} setDate={setEndDate} color="#7c3d3d"/>
+          <select id="pet-select" onChange={event => { setPeriod(event.target.value)}}>
+            <option value="year">Year</option>
+            <option value="month">Month</option>
+            <option value="day">Day</option>
+          </select>
+        </div>
+        <button className="load-button" onClick={handleClick}>Load Data</button>
+      </div>
+      <div style={{width: "50%", margin: "100px auto"}}>
+        <svg id="bar_chart"/>
+      </div>
     </div>
+
   )
 
 };
