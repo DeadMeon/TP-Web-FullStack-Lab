@@ -8,7 +8,7 @@ const dim = {
 const LineChart = ({data}) => {
 
   useEffect(() => {
-    
+
     const arr = data.map(d => {
       return {key: d3.timeParse("%m-%Y")(d.key), value: d.value}
     })
@@ -27,6 +27,8 @@ const LineChart = ({data}) => {
     //display x-axis
     svg.append("g")
       .attr("transform", "translate(0," + dim.height + ")")
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
       .call(d3.axisBottom(x));
 
     //Scalling for y-axis
@@ -35,6 +37,8 @@ const LineChart = ({data}) => {
 
     //display x-axis
     svg.append("g")
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
       .call(d3.axisLeft(y));
 
     const line = d3.line()

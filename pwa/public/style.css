@@ -10,11 +10,11 @@
 }
 
 .circle-info {
-    background: #436067;
+    background: #75b4c4;
     position: absolute;
     visibility: hidden;
     z-index: 10;
-    color: white;
+    color: #030303;
     padding: 15px;
     border-radius: 5px;
     text-align: center;
@@ -25,6 +25,15 @@
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
+}
+
+.rect{
+    fill: indianred;
+    stroke: #131b24;
+}
+.rect-focus{
+    fill: #ce9696;
+    stroke: #131b24;
 }
 
 .custom-input {

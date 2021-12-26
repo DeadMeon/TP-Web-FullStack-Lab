@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DatePicker from "./DatePicker";
 import {fetch} from "../utils/dataAccess";
+
 const dim = {
   width: 800,
   height: 400
@@ -27,7 +28,7 @@ const BarChart = ({data}) => {
   const [donne, setDonne] = useState(data)
   const [startDate, setStartDate] = useState(new Date('2017-01-01'));
   const [endDate, setEndDate] = useState(new Date('2020-12-30'));
-  const [period,setPeriod] = useState("year")
+  const [period, setPeriod] = useState("year")
   const getXAxis = (arr) => {
 
     if (arr.length <= 40) {
@@ -47,7 +48,9 @@ const BarChart = ({data}) => {
         .call(d3.axisBottom(x))
         .selectAll("text")
         .attr("transform", "translate(-10,0)rotate(-45)")
-        .style("text-anchor", "end");
+        .style("text-anchor", "end")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
     } else {
       svg.append("g")
         .attr("transform", "translate(0," + dim.height + ")")
@@ -74,26 +77,62 @@ const BarChart = ({data}) => {
     //display x-axis
     displayXAxis(svg, arr, x)
 
+    //x-axis Label
+    svg.append("text")
+      .attr("transform",
+        "translate(" + (dim.width / 2) + " ," +
+        (dim.height + 60) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Date");
+
     //Scalling for y-axis
     const y = d3.scaleLinear()
       .domain([0, d3.max(arr, (d) => d.value)]).range([dim.height, 0]);
 
     //display y-axis
     svg.append("g")
+      .style("font-size", "12px")
+      .style("font-weight", "bold")
       .call(d3.axisLeft(y));
 
-    const bar = svg.selectAll("rect")
+    //y-axis Label
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", 0 - (dim.height / 2))
+      .attr("y", -100)
+      .style("text-anchor", "middle")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Nombre de Vente");
+
+    const info = d3.select(".circle-info")
+
+    const bar = svg.selectAll(".rect")
       .data(arr)
 
     bar.enter()
       .append("rect")
       .attr("x", d => x(d.key))
       .attr("width", arr.length > 40 ? dim.width / arr.length : x.bandwidth())
-      .attr("fill", "#69b3a2")
       .attr("height", d => dim.height - y(0))
       .attr("y", d => y(0))
-      .style('fill', 'indianred')
-      .style('stroke', 'black')
+      .attr("class", "rect")
+      .on("mousemove", (d, i) => {
+        d.target.classList.remove('rect')
+        d.target.classList.add("rect-focus")
+        const key = arr.length > 40 ? d3.timeFormat(getDateFormat(donne[0].key))(i.key) : i.key;
+        info.html("Date : " + key + "<br/> Nombre de vente :" + i.value)
+          .style("visibility", "visible")
+          .style('top', d.pageY - 12 + 'px')
+          .style('left', d.pageX + 25 + 'px')
+      })
+      .on("mouseleave", (d, i) => {
+        d.target.classList.remove('rect-focus')
+        d.target.classList.add("rect")
+        info.style("visibility", "hidden")
+      })
 
     bar.exit().remove()
 
@@ -111,12 +150,14 @@ const BarChart = ({data}) => {
   }
 
   return (
-    <div style={{marginTop:'80px'}}>
+    <div style={{marginTop: '80px'}}>
       <div className="bar-chart">
         <div style={{display: 'flex', width: '70%', justifyContent: 'space-between'}}>
           <DatePicker date={startDate} setDate={setStartDate} color="#5b8da9"/>
           <DatePicker date={endDate} setDate={setEndDate} color="#7c3d3d"/>
-          <select id="pet-select" onChange={event => { setPeriod(event.target.value)}}>
+          <select onChange={event => {
+            setPeriod(event.target.value)
+          }}>
             <option value="year">Year</option>
             <option value="month">Month</option>
             <option value="day">Day</option>
