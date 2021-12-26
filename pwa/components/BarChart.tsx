@@ -9,9 +9,8 @@ const dim = {
 const BarChart = ({data}) => {
 
   const [donne, setDonne] = useState(data)
-
-
   useEffect(() => {
+
     const svg = d3.select('#bar_chart').html("");
     svg
       .attr('width', dim.width)
@@ -24,7 +23,7 @@ const BarChart = ({data}) => {
     const x = d3.scaleBand()
       .range([0, dim.width])
       .domain(donne.map(d => d.key))
-      .padding(0.1);
+
 
     //display x-axis
     svg.append("g")
@@ -42,6 +41,27 @@ const BarChart = ({data}) => {
     svg.append("g")
       .call(d3.axisLeft(y));
 
+    const bar = svg.selectAll("rect")
+      .data(donne)
+
+    bar.enter()
+      .append("rect")
+      .merge(bar)
+      .attr("x", d => x(d.key))
+      .attr("width", x.bandwidth())
+      .attr("fill", "#69b3a2")
+      .attr("height", d => dim.height - y(0))
+      .attr("y", d => y(0))
+      .style('fill', 'indianred')
+      .style('stroke', 'black')
+
+    bar.exit().remove()
+
+    svg.selectAll("rect")
+      .transition()
+      .duration(800)
+      .attr("y", d => y(d.value))
+      .attr("height", d => dim.height - y(d.value))
 
   }, [donne])
 
