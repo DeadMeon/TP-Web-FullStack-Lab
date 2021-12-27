@@ -6,7 +6,7 @@ import { Card, Container } from "react-bootstrap";
 interface CardComponentProps {
     title: string;
     text: string;
-    component?: Component;
+    component?: any;
 }
 
 interface CardComponentState {
@@ -16,10 +16,10 @@ export default class CardComponent extends Component<CardComponentProps, CardCom
     render() {
         return <Container className="pt-4">
             <Card>
-                <Card.Img variant="top">
-                    {this.props.component}
-                </Card.Img>
                 <Card.Body>
+                    <div className="pb-3">
+                        {this.props.component}
+                    </div>
                     <Card.Title>{this.props.title}</Card.Title>
                     <Card.Text>
                         {this.props.text}
