@@ -13,10 +13,22 @@ const Welcome = () => (
 
         <HeaderComponent />
 
-        <HeroComponent title="PaluStats" text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur sit eaque magni natus doloremque harum." />
+        <div id="Hero">
+             <HeroComponent title="PaluStats" text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur sit eaque magni natus doloremque harum." />
+        </div>
 
-        <CardComponent title="Prix Moyen du m²" text="tebvhbsibdovsd,vs" />
-
+        <div id="Card">
+            <div id="PrixMetreCarre" className="py-5">
+                <CardComponent title="Prix Moyen du m²" text="tebvhbsibdovsd,vs" />
+            </div>
+            <div id="NbVentes" className="py-5">
+                <CardComponent title="Nombre de vente" text="tebvhbsibdovsd,vs" />
+            </div>
+            <div id="VentesParRegion" className="py-5">
+                <CardComponent title="Ventes par Région" text="tebvhbsibdovsd,vs" />
+            </div>
+        </div>
+        
         <FooterComponent />
     </>
 );
