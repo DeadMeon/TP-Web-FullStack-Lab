@@ -12,14 +12,14 @@ interface CardComponentProps {
 interface CardComponentState {
 }
 
-export default class CardComponent extends Component {
+export default class CardComponent extends Component<CardComponentProps, CardComponentState> {
     render() {
         return <Container>
             <Card>
                 <Card.Body>
-                    <Card.Title>Titre</Card.Title>
+                    <Card.Title>{this.props.title}</Card.Title>
                     <Card.Text>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius illo fugit corrupti voluptatem dolorem autem, sequi cumque nemo minima voluptatum blanditiis nisi, ad consectetur commodi earum sapiente. In, doloremque possimus.
+                        {this.props.text}
                     </Card.Text>
                 </Card.Body>
             </Card>
