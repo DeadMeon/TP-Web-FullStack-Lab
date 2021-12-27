@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import { Card, Container } from "react-bootstrap";
 
+
+
+interface CardComponentProps {
+    title: string;
+    text: string;
+    component?: Component;
+}
+
+interface CardComponentState {
+}
+
 export default class CardComponent extends Component {
     render() {
         return <Container>
