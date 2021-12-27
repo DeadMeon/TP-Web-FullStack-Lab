@@ -16,6 +16,9 @@ export default class CardComponent extends Component<CardComponentProps, CardCom
     render() {
         return <Container>
             <Card>
+                <Card.Img variant="top">
+                    {this.props.component}
+                </Card.Img>
                 <Card.Body>
                     <Card.Title>{this.props.title}</Card.Title>
                     <Card.Text>
