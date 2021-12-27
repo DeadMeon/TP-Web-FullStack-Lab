@@ -14,7 +14,7 @@ interface HeroComponentState {
 export default class HeroComponent extends Component<HeroComponentProps, HeroComponentState> {
     render() {
         return <div className="jumbotron ">
-            <Container className="my-5 pt-5">
+            <Container className="mt-5 pt-5">
                 <h1 className="display-4">{this.props.title}</h1>
                 <p className="lead">{this.props.text}</p>        
             </Container>

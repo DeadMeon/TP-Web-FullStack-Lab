@@ -18,10 +18,10 @@ const Welcome = () => (
         </div>
 
         <div id="Card">
-            <div id="PrixMetreCarre" className="py-5">
+            <div id="PrixMetreCarre" className="pt-5">
                 <CardComponent title="Prix Moyen du m²" text="tebvhbsibdovsd,vs" />
             </div>
-            <div id="NbVentes" className="py-5">
+            <div id="NbVentes" className="pt-5">
                 <CardComponent title="Nombre de vente" text="tebvhbsibdovsd,vs" />
             </div>
             <div id="VentesParRegion" className="py-5">

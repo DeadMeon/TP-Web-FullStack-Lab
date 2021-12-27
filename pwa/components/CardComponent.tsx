@@ -14,7 +14,7 @@ interface CardComponentState {
 
 export default class CardComponent extends Component<CardComponentProps, CardComponentState> {
     render() {
-        return <Container>
+        return <Container className="pt-4">
             <Card>
                 <Card.Img variant="top">
                     {this.props.component}
