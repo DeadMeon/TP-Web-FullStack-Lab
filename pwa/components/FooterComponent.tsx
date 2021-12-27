@@ -14,9 +14,12 @@ export default class FooterComponent extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className="mb-4">
-                        <p>test</p>
-                    </Col>
+                    <Col><p>test</p></Col>
+                    <Col><p>test</p></Col>
+                    <Col><p>test</p></Col>
+                    <Col><p>test</p></Col>
+                    <Col><p>test</p></Col>
+                    <Col><p>test</p></Col>
                 </Row>
             </Container>
         </div>
