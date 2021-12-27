@@ -22,6 +22,14 @@ export default class FooterComponent extends Component {
                     <Col><p>test</p></Col>
                     <Col><p>test</p></Col>
                 </Row>
+                <Row className="mt-5">
+                    <Col>
+                        <p className="copyright">
+                            Richard PLANCHON, Aziz M'HIRSI, Souhail KACIMI, & Gwénolé PAUGAM<br />
+                            All Rights Reserved.
+                        </p>
+                    </Col>
+                </Row>
             </Container>
         </div>
     }
