@@ -150,12 +150,12 @@ const BarChart = ({data}) => {
   }
 
   return (
-    <div style={{marginTop: '80px'}}>
+    <div>
       <div className="bar-chart">
         <div style={{display: 'flex', width: '70%', justifyContent: 'space-between'}}>
           <DatePicker date={startDate} setDate={setStartDate} color="#5b8da9"/>
           <DatePicker date={endDate} setDate={setEndDate} color="#7c3d3d"/>
-          <select onChange={event => {
+          <select className="form-select" onChange={event => {
             setPeriod(event.target.value)
           }}>
             <option value="year">Year</option>
@@ -163,9 +163,9 @@ const BarChart = ({data}) => {
             <option value="day">Day</option>
           </select>
         </div>
-        <button className="load-button" onClick={handleClick}>Load Data</button>
+        <button className="btn btn-outline-info" onClick={handleClick}>Load Data</button>
       </div>
-      <div style={{width: "50%", margin: "100px auto"}}>
+      <div>
         <svg id="bar_chart"/>
       </div>
     </div>

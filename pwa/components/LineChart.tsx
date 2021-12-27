@@ -95,7 +95,7 @@ const LineChart = ({data}) => {
   }, [])
 
   return (
-    <div style={{width: "50%", margin: "20px auto"}}>
+    <div >
       <svg id="line_chart"/>
     </div>
   )

@@ -3,7 +3,6 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../public/style.css";
-import "react-datepicker/dist/react-datepicker.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
