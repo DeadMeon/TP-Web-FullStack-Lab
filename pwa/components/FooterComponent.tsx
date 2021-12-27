@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container } from "react-bootstrap";
 
 
 
@@ -6,7 +7,9 @@ import React, { Component } from "react";
 export default class FooterComponent extends Component {
     render() {
         return <div className="jumbotron mb-0 mt-4">
-            <p>test</p>
+            <Container className="pt-5 justify-content-center text-center">
+                <p>test</p>
+            </Container>
         </div>
     }
 }
