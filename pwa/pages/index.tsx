@@ -1,6 +1,6 @@
 import Head from "next/head";
 import HeaderComponent from "components/HeaderComponent";
-
+import FooterComponent from "components/FooterComponent";
 
 const Welcome = () => (
     <>
@@ -11,6 +11,7 @@ const Welcome = () => (
 
         <HeaderComponent />
 
+        <FooterComponent />
     </>
 );
 export default Welcome;
