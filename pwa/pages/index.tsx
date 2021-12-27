@@ -3,6 +3,7 @@ import HeaderComponent from "components/HeaderComponent";
 import FooterComponent from "components/FooterComponent";
 import HeroComponent from "components/HeroComponent";
 import CardComponent from "components/CardComponent";
+import LogoComponent from "components/LogoComponent";
 
 const Welcome = () => (
     <>
@@ -19,7 +20,7 @@ const Welcome = () => (
 
         <div id="Card">
             <div id="PrixMetreCarre" className="pt-5">
-                <CardComponent title="Prix Moyen du m²" text="tebvhbsibdovsd,vs" />
+                <CardComponent title="Prix Moyen du m²" text="tebvhbsibdovsd,vs" component={<LogoComponent />}/>
             </div>
             <div id="NbVentes" className="pt-5">
                 <CardComponent title="Nombre de vente" text="tebvhbsibdovsd,vs" />
