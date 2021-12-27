@@ -14,7 +14,7 @@ export default class FooterComponent extends Component {
                         <LogoComponent />
                     </Col>
                 </Row>
-                <Row>
+                <Row className="my-5">
                     <Col><Button variant="outline-dark">About</Button></Col>
                     <Col><Button variant="outline-dark">Services</Button></Col>
                     <Col><Button variant="outline-dark">Press</Button></Col>
