@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import LogoComponent from "./LogoComponent";
 
 
@@ -15,12 +15,13 @@ export default class FooterComponent extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col><p>test</p></Col>
-                    <Col><p>test</p></Col>
-                    <Col><p>test</p></Col>
-                    <Col><p>test</p></Col>
-                    <Col><p>test</p></Col>
-                    <Col><p>test</p></Col>
+                    <Col><Button variant="outline-dark">About</Button></Col>
+                    <Col><Button variant="outline-dark">Services</Button></Col>
+                    <Col><Button variant="outline-dark">Press</Button></Col>
+                    <Col><Button variant="outline-dark">Careers</Button></Col>
+                    <Col><Button variant="outline-dark">FAQ</Button></Col>
+                    <Col><Button variant="outline-dark">Legal</Button></Col>
+                    <Col><Button variant="outline-dark">Contact</Button></Col>
                 </Row>
                 <Row className="mt-5">
                     <Col>
