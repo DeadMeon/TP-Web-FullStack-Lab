@@ -1,6 +1,7 @@
 import Head from "next/head";
 import HeaderComponent from "components/HeaderComponent";
 import FooterComponent from "components/FooterComponent";
+import HeroComponent from "components/HeroComponent";
 
 const Welcome = () => (
     <>
@@ -10,6 +11,8 @@ const Welcome = () => (
         </Head>
 
         <HeaderComponent />
+        
+        <HeroComponent title="PaluStats" text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur sit eaque magni natus doloremque harum." />
 
         <FooterComponent />
     </>
