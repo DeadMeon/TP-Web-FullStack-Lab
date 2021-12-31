@@ -129,6 +129,8 @@ const DonutChart = ({params}) => {
     return tmpArr
   }
 
+  const onChange = (event) => {setYear(event.target.value)}
+
   const onClick = async () => {
     const donutCollection = await fetch("/property_sales/sell/" + year)
     d3.select('#donut_chart').html("");
@@ -138,7 +140,7 @@ const DonutChart = ({params}) => {
   return (
     <div>
       <div style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
-        <select className="form-select m-1" >
+        <select className="form-select m-1" onChange={onChange} >
           <option value="2020">2020</option>
           <option value="2019">2019</option>
           <option value="2018">2018</option>
@@ -149,7 +151,7 @@ const DonutChart = ({params}) => {
 
       </div>
       <svg id="donut_chart"/>
-      <p className="text-center h1 font-weight-bold">{()=>{}}</p>
+      <p className="text-center h1 font-weight-bold">{displayYear}</p>
     </div>
   )
 }
