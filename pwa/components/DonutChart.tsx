@@ -134,6 +134,7 @@ const DonutChart = ({params}) => {
   const onClick = async () => {
     const donutCollection = await fetch("/property_sales/sell/" + year)
     d3.select('#donut_chart').html("");
+    setDisplayYear(year)
     setData(donutCollection.data)
   }
 
