@@ -23,28 +23,28 @@ const DonutChart = ({params}) => {
       .append("g")
       .attr("transform", "translate(" + dim.width / 2 + "," + dim.height / 2 + ")");
 
-// set the color scale
+    // set the color scale
     const color = d3.scaleOrdinal()
       .domain(dataArr.map(d => d.key))
       .range(d3.schemeDark2);
 
-// Compute the position of each group on the pie:
+    // Compute the position of each group on the pie:
     const pie = d3.pie()
       .sort(null) // Do not sort group by size
       .value(d => d[1].value)
     const data_ready = pie(Object.entries(dataArr))
 
-// The arc generator
+    // The arc generator
     const arc = d3.arc()
       .innerRadius(radius * 0.5)         // This is the size of the donut hole
       .outerRadius(radius * 0.8)
 
-// Another arc that won't be drawn. Just for labels positioning
+    // Another arc that won't be drawn. Just for labels positioning
     const outerArc = d3.arc()
       .innerRadius(radius * 0.9)
       .outerRadius(radius * 0.9)
 
-// Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     const path = svg
       .selectAll('allSlices')
       .data(data_ready)
@@ -57,7 +57,7 @@ const DonutChart = ({params}) => {
     path.transition().duration(500).attr("d", arc);
 
 
-// Add the polylines between chart and labels:
+    // Add the polylines between chart and labels:
     svg
       .selectAll('allPolylines')
       .data(data_ready)
@@ -93,7 +93,7 @@ const DonutChart = ({params}) => {
       })
 
 
-// Add the polylines between chart and labels:
+    // Add the polylines between chart and labels:
     svg
       .selectAll('allLabels')
       .data(data_ready)
