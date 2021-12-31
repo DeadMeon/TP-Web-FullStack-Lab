@@ -9,7 +9,8 @@ const dim = {
 
 const DonutChart = ({params}) => {
   const [data, setData] = useState(params)
-
+  const [year, setYear] = useState("2020")
+  const [displayYear, setDisplayYear] = useState("2020")
 
 
   useEffect(() => {
@@ -17,6 +18,11 @@ const DonutChart = ({params}) => {
   }, [data])
 
 
+  const onClick = async () => {
+    const donutCollection = await fetch("/property_sales/sell/" + year)
+    d3.select('#donut_chart').html("");
+    setData(donutCollection.data)
+  }
 
   return (
     <div>
@@ -28,7 +34,7 @@ const DonutChart = ({params}) => {
           <option value="2017">2017</option>
 
         </select>
-        <button className="btn btn-outline-secondary m-lg-1" onClick={()=>{}}>Load Data</button>
+        <button className="btn btn-outline-secondary m-lg-1" onClick={onClick}>Load Data</button>
 
       </div>
       <svg id="donut_chart"/>
