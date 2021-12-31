@@ -14,7 +14,7 @@ const DonutChart = ({params}) => {
 
 
   useEffect(() => {
-    const dataArr = data;
+    const dataArr = reformatData(data);
     const radius = Math.min(dim.width, dim.height) / 2 - dim.margin
 
     const svg = d3.select("#donut_chart")
@@ -111,6 +111,23 @@ const DonutChart = ({params}) => {
       })
   }, [data])
 
+  const reformatData = (data) => {
+    const tmpArr = [];
+    data.forEach(d => {
+      if (d.value > 4)
+        tmpArr.push(d)
+      else {
+        let index = tmpArr.findIndex(i => i.key === "autre")
+        if (index === -1) {
+          tmpArr.push({key: "autre", value: d.value})
+        } else {
+          tmpArr[index].value = tmpArr[index].value + d.value
+
+        }
+      }
+    })
+    return tmpArr
+  }
 
   const onClick = async () => {
     const donutCollection = await fetch("/property_sales/sell/" + year)
