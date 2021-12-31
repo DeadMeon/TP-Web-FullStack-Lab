@@ -7,14 +7,14 @@ const dim = {
   margin: 40
 }
 
-const DonutChart = ({params}) => {
-  const [data, setData] = useState(params)
+const DonutChart = ({data}) => {
+  const [donne, setData] = useState(data)
   const [year, setYear] = useState("2020")
   const [displayYear, setDisplayYear] = useState("2020")
 
 
   useEffect(() => {
-    const dataArr = reformatData(data);
+    const dataArr = reformatData(donne);
     const radius = Math.min(dim.width, dim.height) / 2 - dim.margin
 
     const svg = d3.select("#donut_chart")
@@ -109,7 +109,7 @@ const DonutChart = ({params}) => {
         const midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
         return (midangle < Math.PI ? 'start' : 'end')
       })
-  }, [data])
+  }, [donne])
 
   const reformatData = (data) => {
     const tmpArr = [];
