@@ -81,7 +81,7 @@ const BarChart = ({data}) => {
     svg.append("text")
       .attr("transform",
         "translate(" + (dim.width / 2) + " ," +
-        (dim.height + 60) + ")")
+        (dim.height + 105) + ")")
       .style("text-anchor", "middle")
       .style("font-size", "20px")
       .style("font-weight", "bold")
@@ -153,8 +153,8 @@ const BarChart = ({data}) => {
     <div>
       <div className="bar-chart">
         <div style={{display: 'flex', width: '70%', justifyContent: 'space-between'}}>
-          <DatePicker date={startDate} setDate={setStartDate} color="#5b8da9"/>
-          <DatePicker date={endDate} setDate={setEndDate} color="#7c3d3d"/>
+          <DatePicker date={startDate} setDate={setStartDate} color="#5b8da9" minDate={undefined} type="start"/>
+          <DatePicker date={endDate} setDate={setEndDate} color="#7c3d3d" minDate={startDate} type="end"/>
           <select className="form-select" onChange={event => {
             setPeriod(event.target.value)
           }}>

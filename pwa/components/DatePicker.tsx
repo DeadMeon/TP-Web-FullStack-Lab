@@ -1,6 +1,7 @@
 import React, {forwardRef} from 'react';
 import DatePicker from "react-datepicker";
-const DatePick = ({date, setDate, color}) => {
+
+const DatePick = ({date, setDate, color, minDate, type}) => {
   const years = [2017, 2018, 2019, 2020]
   const months = [
     "January",
@@ -74,7 +75,11 @@ const DatePick = ({date, setDate, color}) => {
             </button>
           </div>
         )}
+
+        minDate={minDate}
         selected={date}
+        selectsStart={type === "start"}
+        selectsEnd={type === "end"}
         onChange={(date) => setDate(date)}
         customInput={<ExampleCustomInput/>}
       />

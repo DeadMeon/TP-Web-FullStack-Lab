@@ -31,6 +31,16 @@ const LineChart = ({data}) => {
       .style("font-weight", "bold")
       .call(d3.axisBottom(x));
 
+
+    svg.append("text")
+      .attr("transform",
+        "translate(" + (dim.width / 2) + " ," +
+        (dim.height +105) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Date");
+
     //Scalling for y-axis
     const y = d3.scaleLinear()
       .domain([0, d3.max(arr, d => d.value)]).range([dim.height, 0]);
@@ -40,6 +50,16 @@ const LineChart = ({data}) => {
       .style("font-size", "12px")
       .style("font-weight", "bold")
       .call(d3.axisLeft(y));
+
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", 0 - (dim.height / 2))
+      .attr("y", -100)
+      .style("text-anchor", "middle")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Prix Moyen du m²");
+
 
     const line = d3.line()
       .x(d => x(d.key))
@@ -95,7 +115,7 @@ const LineChart = ({data}) => {
   }, [])
 
   return (
-    <div >
+    <div>
       <svg id="line_chart"/>
     </div>
   )
