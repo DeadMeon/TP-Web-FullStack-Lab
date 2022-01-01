@@ -8,6 +8,7 @@ import {GetStaticProps} from "next";
 import {fetch} from "../utils/dataAccess";
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
+import DonutChart from "../components/DonutChart";
 const Welcome = ({lineData, barData, donutData}) => (
     <>
         <Head>
@@ -29,7 +30,7 @@ const Welcome = ({lineData, barData, donutData}) => (
                 <CardComponent title="Nombre de vente" text="tebvhbsibdovsd,vs" component={<BarChart data={barData}/>} />
             </div>
             <div id="VentesParRegion" className="py-5">
-                <CardComponent title="Ventes par Région" text="tebvhbsibdovsd,vs" />
+                <CardComponent title="Ventes par Région" text="tebvhbsibdovsd,vs"  component={<DonutChart data={donutData}/>}/>
             </div>
         </div>
 
@@ -40,7 +41,7 @@ const Welcome = ({lineData, barData, donutData}) => (
 export const getStaticProps: GetStaticProps = async (context) => {
   const lineCollection = await fetch("/property_sales/average");
   const barCollection = await fetch("/property_sales/count/year/1-1-2017/1-10-2020");
-  const donutCollection = await fetch("/property_sales/sell/2020")
+  const donutCollection = await fetch("/property_sales/sell/2017")
 
   return {
     props: {
