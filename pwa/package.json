@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@api-platform/admin": "^2.6.0",
